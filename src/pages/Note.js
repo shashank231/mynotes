@@ -15,7 +15,7 @@ const Note = () => {
       if (noteId === 'new') return;
   
       try {
-        const response = await fetch(`http://127.0.0.1:5000/notes/${noteId}`);
+        const response = await fetch(`/api/notes/${noteId}`);
         if (!response.ok) {
           console.error(`Error fetching note with ID ${noteId}`);
           return;
@@ -27,29 +27,29 @@ const Note = () => {
         console.error('Error fetching note:', error);
       }
     };
-  
+
     const createNote = async () => {
-      await fetch(`http://127.0.0.1:5000/notes/`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ ...note, updated: new Date() })
-      });
-    };
+      fetch(`/api/notes/`, {
+          method: "POST",
+          headers: {
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(note)
+      })
+    }
   
     const updateNote = async () => {
-      await fetch(`http://127.0.0.1:5000/notes/${noteId}/`, {
+      await fetch(`/api/notes/${noteId}/`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ ...note, updated: new Date() })
+        body: JSON.stringify(note)
       });
     };
   
     const deleteNote = async () => {
-      await fetch(`http://127.0.0.1:5000/notes/${noteId}/`, {
+      await fetch(`/api/notes/${noteId}/`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json'
